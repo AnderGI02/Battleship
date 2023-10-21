@@ -6,30 +6,24 @@ describe("Gameboard Unit Tests", () => {
   let defaultGameboard;
   let gameboard7x7;
   let gameboard10x7;
-  // let defaultShip;
-  //let defaultHorizontalShipData;
-  //let defaultVerticalShipData;
+  let length5Ship;
+  let verticalPlacementData;
+  let horizontalPlacementData;
+
   beforeAll(() => {
-    // defaultShip = ShipFactory();
     defaultGameboard = GameboardFactory();
     gameboard7x7 = GameboardFactory(7, 7);
     gameboard10x7 = GameboardFactory(10, 7);
-    // defaultHorizontalShipData = {
-    //   ship: defaultShip,
-    //   startingCoordinates: {
-    //     row: 2,
-    //     col: 4,
-    //   },
-    //   direction: "horizontal",
-    // };
-    // defaultVerticalShipData = {
-    //   ship: defaultShip,
-    //   startingCoordinates: {
-    //     row: 3,
-    //     col: 1,
-    //   },
-    //   direction: "vertical",
-    // };
+
+    length5Ship = ShipFactory(5);
+    horizontalPlacementData = {
+      ship: length5Ship,
+      direction: "horizontal",
+    };
+    verticalPlacementData = {
+      ship: length5Ship,
+      direction: "vertical",
+    };
   });
 
   describe("Test if gameboard has the right amount of rows and cols", () => {
@@ -50,20 +44,6 @@ describe("Gameboard Unit Tests", () => {
   });
 
   describe("Test Starting Ship Coordinates", () => {
-    let length5Ship;
-    let verticalPlacementData;
-    let horizontalPlacementData;
-    beforeAll(() => {
-      length5Ship = ShipFactory(5);
-      horizontalPlacementData = {
-        ship: length5Ship,
-        direction: "horizontal",
-      };
-      verticalPlacementData = {
-        ship: length5Ship,
-        direction: "vertical",
-      };
-    });
     it("Test correct horizontal starting point", () => {
       const correctHorizontalPlacement = {
         ...horizontalPlacementData,
@@ -142,8 +122,6 @@ describe("Gameboard Unit Tests", () => {
         defaultGameboard.isStartingCoordinateCorrect(horizontalPlacement)
       ).toBe(true);
     });
-    // Negative numbers
-    // Rows and cols bigger than the board borders
     it("Test that the starting point coordinates are between the board boundaries", () => {
       // The tested ship has a length of 5
       // In horizontal and vertical should be index 5
@@ -193,56 +171,59 @@ describe("Gameboard Unit Tests", () => {
     });
   });
 
-  /*  
   describe("Gameboard ship placement", () => {
-    describe("Vertical placement", () => {
-      it("It places vertical ships correctly", () => {
-        const updatedBoard = defaultGameboard.placeShip(
-          defaultVerticalShipData
-        );
-        defaultGameboard = {
-          ...defaultGameboard,
-          board: updatedBoard,
-        };
-        const { board } = defaultGameboard;
-        expect(board[3][1]).toEqual(1);
-        expect(board[4][1]).toEqual(1);
-        expect(board[5][1]).toEqual(1);
-      });
+    it("It places vertical ships correctly within its boundaries", () => {
+      // Genero data del placement del ship en vertical desde la segunda fila segunda col
+      const verticalPositionShip = {
+        ...verticalPlacementData,
+        startingCoordinates: {
+          row: 1,
+          col: 1,
+        },
+      };
+      // Posiciono el ship y devuelvo una representacion del board
+      const updatedBoard = defaultGameboard.placeShip(verticalPositionShip);
+      // Actualizo el board existente con el nuevo para mantener la inmutabilidad
+      defaultGameboard = {
+        ...defaultGameboard,
+        board: updatedBoard,
+      };
 
-      it("Test if ships dont surpase their vertical length limit when placed", () => {
-        const { board } = defaultGameboard;
-        expect(board[2][1]).not.toEqual(1);
-        expect(board[6][1]).not.toEqual(1);
-        expect(board[7][1]).not.toEqual(1);
-      });
+      const { board } = defaultGameboard;
+      // Checkeo de segunda fila y segunda col
+      // [1,1] [2,1] [3,1] [4,1] [5,1]
+      expect(board[0][1]).not.toEqual(1);
+      expect(board[1][1]).toEqual(1);
+      expect(board[2][1]).toEqual(1);
+      expect(board[3][1]).toEqual(1);
+      expect(board[4][1]).toEqual(1);
+      expect(board[5][1]).toEqual(1);
+      expect(board[6][1]).not.toEqual(1);
     });
 
-    describe("Horizontal Placement", () => {
-      it("It places horizontal ships correctly", () => {
-        const updatedBoard = defaultGameboard.placeShip(
-          defaultHorizontalShipData
-        );
-        defaultGameboard = {
-          ...defaultGameboard,
-          board: updatedBoard,
-        };
-        const { board } = defaultGameboard;
-        expect(board[2][4]).toEqual(1);
-        expect(board[2][5]).toEqual(1);
-        expect(board[2][6]).toEqual(1);
-      });
-      it("Test if ships dont surpase their horizontal length limit when placed", () => {
-        const { board } = defaultGameboard;
-        expect(board[2][3]).not.toEqual(1);
-        expect(board[2][7]).not.toEqual(1);
-        expect(board[2][8]).not.toEqual(1);
-      });
+    it("It places horizontal ships correctly whithin its boundaries", () => {
+      const horizontalShipPositioning = {
+        ...horizontalPlacementData,
+        startingCoordinates: {
+          row: 2,
+          col: 2,
+        },
+      };
+      const updatedBoard = defaultGameboard.placeShip(
+        horizontalShipPositioning
+      );
+      defaultGameboard = {
+        ...defaultGameboard,
+        board: updatedBoard,
+      };
+      const { board } = defaultGameboard;
+      expect(board[2][1]).not.toEqual(1);
+      expect(board[2][2]).toEqual(1);
+      expect(board[2][3]).toEqual(1);
+      expect(board[2][4]).toEqual(1);
+      expect(board[2][5]).toEqual(1);
+      expect(board[2][6]).toEqual(1);
+      expect(board[2][7]).not.toEqual(1);
     });
   });
-  */
 });
-
-// OVERLAPPING SHIPS
-// PLACE A SHIP WHEN BOARD IS FULL
-// SHIP SHOULD BE COMPLETELY PLACED IN A ROW VETICALLY OR HORIZONTALLY WITHOUT BREAKING

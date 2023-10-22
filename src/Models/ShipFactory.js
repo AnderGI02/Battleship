@@ -21,9 +21,9 @@ const extensionProto = (basicShipData) => {
   return basicObjData;
 };
 
-const ShipFactory = (length = 3) => {
+const ShipFactory = (shipLength) => {
   const basicData = {
-    length,
+    length: !shipLength ? 3 : shipLength,
   };
   return extensionProto(basicData);
 };

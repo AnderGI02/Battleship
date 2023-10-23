@@ -192,55 +192,6 @@ describe("Gameboard Unit Tests", () => {
       ).toBe(false);
     });
   });
-
-  /*  
-  describe("Gameboard ship placement", () => {
-    describe("Vertical placement", () => {
-      it("It places vertical ships correctly", () => {
-        const updatedBoard = defaultGameboard.placeShip(
-          defaultVerticalShipData
-        );
-        defaultGameboard = {
-          ...defaultGameboard,
-          board: updatedBoard,
-        };
-        const { board } = defaultGameboard;
-        expect(board[3][1]).toEqual(1);
-        expect(board[4][1]).toEqual(1);
-        expect(board[5][1]).toEqual(1);
-      });
-
-      it("Test if ships dont surpase their vertical length limit when placed", () => {
-        const { board } = defaultGameboard;
-        expect(board[2][1]).not.toEqual(1);
-        expect(board[6][1]).not.toEqual(1);
-        expect(board[7][1]).not.toEqual(1);
-      });
-    });
-
-    describe("Horizontal Placement", () => {
-      it("It places horizontal ships correctly", () => {
-        const updatedBoard = defaultGameboard.placeShip(
-          defaultHorizontalShipData
-        );
-        defaultGameboard = {
-          ...defaultGameboard,
-          board: updatedBoard,
-        };
-        const { board } = defaultGameboard;
-        expect(board[2][4]).toEqual(1);
-        expect(board[2][5]).toEqual(1);
-        expect(board[2][6]).toEqual(1);
-      });
-      it("Test if ships dont surpase their horizontal length limit when placed", () => {
-        const { board } = defaultGameboard;
-        expect(board[2][3]).not.toEqual(1);
-        expect(board[2][7]).not.toEqual(1);
-        expect(board[2][8]).not.toEqual(1);
-      });
-    });
-  });
-  */
 });
 
 // OVERLAPPING SHIPS
